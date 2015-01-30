@@ -11,7 +11,8 @@ public class MissingNumber {
 		int numbers[] = new int[MAX];
 		init(numbers);
 		print(numbers);
-		numbers = randomRemove(numbers);
+		//numbers = randomRemove(numbers);
+		numbers = randomRemoveWithoutShrink(numbers);
 		print(numbers);
 		System.out.println("Missing number :" + guess(numbers));
 	}
@@ -31,6 +32,13 @@ public class MissingNumber {
 			i++;
 		}
 	}
+	
+	static int[] randomRemoveWithoutShrink(int[] num) {
+		Random r = new Random(System.currentTimeMillis());
+		num[r.nextInt(MAX)] = 0;
+		return num;
+	}
+
 	
 	static int[] randomRemove(int[] num) {
 		Random r = new Random(System.currentTimeMillis());
