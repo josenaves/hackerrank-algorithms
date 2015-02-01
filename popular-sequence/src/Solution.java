@@ -59,7 +59,7 @@ public class Solution {
 	
 	static String findLcs(String s1, String s2) {
 		
-		int maxlen = 0;
+		int longest = 0;
 		
         int len1 = s1.length();
         int len2 = s2.length();
@@ -72,26 +72,44 @@ public class Solution {
             	if (i == 0 || j ==0) lcs[i][j] = 0;
             	else if (s1.charAt(i-1) == s2.charAt(j-1)) {
                 	lcs[i][j] = lcs[i-1][j-1] + 1;
-                	if (lcs[i][j] > maxlen) maxlen = lcs[i][j];
+                	if (lcs[i][j] > longest)  {
+                		longest = lcs[i][j];
+                	}
                 }
                 else {
                 	lcs[i][j] = Math.max(lcs[i - 1][j], lcs[i][j - 1]);
                 }
             }
         }
+        System.out.println("longest = " + longest);
         
-        System.out.println("maxlen = " + maxlen);
+        // get the string sequence
+        String sequence = "";
         
-        String match = "";
-        for (int j = len2; j >= 0; j--) {
-        	if (lcs[1][j] == maxlen) {
-        		match = s2.charAt(j-1) + match;
+        int auxLongest = longest;
+        
+        for (int i = len1; i > 0; i--) {
+        	// search the index of the longest sequence
+        	int[] row = lcs[i];
+        	
+        	for (int j = len2; j >= 0; j--) {
+        		if (row[j] == auxLongest) {
+        			sequence += s2.charAt(j-1);
+        			auxLongest--;
+        		}
+        		else {
+        			auxLongest = longest;
+        			sequence = "";
+        		}
         	}
         }
         
-        return "";
+        return sequence;
     }
 
+	
+	
+	
 	private static List<LogLine> getLog() {
 		BufferedReader inReader = new BufferedReader(new InputStreamReader(System.in));
 		List<LogLine> log = new ArrayList<LogLine>();
@@ -116,8 +134,8 @@ public class Solution {
 	public static void main(String[] args) {
 		
 		System.out.println(findLcs("GSD", "GGSDD"));
-		
 		System.out.println(findLcs("juliana", "mariana"));
+		System.out.println(findLcs("mariajuliana", "mariana"));
 
 		System.exit(0);
 		
