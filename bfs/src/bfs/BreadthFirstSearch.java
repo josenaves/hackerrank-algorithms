@@ -6,7 +6,7 @@ import java.util.Queue;
 public class BreadthFirstSearch {
 
 	public static void main(String[] args) {
-		int[][] adjList = { 
+		int[][] graph = { 
 			{1},
 			{0, 4, 5},
 			{3, 4, 5},
@@ -17,8 +17,8 @@ public class BreadthFirstSearch {
 			{}
 		};
 		
-		BFSInfo[] bfsInfo = doBFS(adjList, 3);
-		for (int i = 0; i < adjList.length; i++) {
+		BFSInfo[] bfsInfo = doBFS(graph, 3);
+		for (int i = 0; i < graph.length; i++) {
 			System.out.println("vertex " + i + " : distance = " + bfsInfo[i].distance + ", predecessor = " + bfsInfo[i].predecessor);
 		}
 		
